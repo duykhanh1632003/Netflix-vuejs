@@ -118,7 +118,7 @@
                                 </button>
                         </div>
                         <div class="absolute bg-white max-w-[700px] h-auto w-full">
-                            <div v-if="flase" class="p-1">
+                            <div v-if="false" class="p-1">
                                 <NuxtLink
                                     to="`/item/1`"
                                     class="flex items-center justify-between w-full cursor-pointer hover:bg-gray-100"
@@ -173,13 +173,27 @@
                     </button>
 
                 </NuxtLink>
-            </div>
 
+                <button 
+                    @click="userStore.isMenuOverlay = true"
+                    class="md:hidden block rounded-full p-1.5 -mt-[4px] hover:bg-gray-200"
+                >
+                    <Icon name="radix-icons:hamburger-menu" size="33" />
+                </button>
+            </div>
         </div>
     </div>
+
+    <Loading v-if="userStore.isLoading" />
+    <div class="lg:pt-[150px] md:pt-[130px] pt-[80px]" />
+    <slot />
+
+    <chan v-if="!userStore.isLoading" />
 </template>
 
 <script setup>
+    import { useUserStore } from '../stores/user'
+    const userStore = useUserStore()
     let isAccountMenu = ref(false);
     let isCartHover = ref(false);
     let isSearching = ref(true)
